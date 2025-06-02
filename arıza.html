@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Tevhid Asansör Arıza Formu</title>
+</head>
+<body>
+  <h2>Tevhid Asansör Arıza Bildirim Formu</h2>
+
+  <form id="arizaForm">
+    <label>Ad Soyad:</label><br>
+    <input type="text" name="ad" required><br><br>
+
+    <label>Telefon:</label><br>
+    <input type="tel" name="telefon" required><br><br>
+
+    <label>Bina Adı:</label><br>
+    <input type="text" name="bina_adi"><br><br>
+
+    <label>Adres:</label><br>
+    <textarea name="bina_adresi"></textarea><br><br>
+
+    <label>Arıza Açıklaması:</label><br>
+    <textarea name="ariza"></textarea><br><br>
+
+    <label>Fotoğraf (link):</label><br>
+    <input type="text" name="foto"><br><br>
+
+    <label>Çalışan Sayısı:</label><br>
+    <input type="number" name="calisan_sayisi"><br><br>
+
+    <button type="submit">Gönder</button>
+  </form>
+
+  <script>
+    document.getElementById("arizaForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = {};
+      formData.forEach((value, key) => data[key] = value);
+
+      fetch("AKfycby7RPMWTbVhK5F8J7S4zywhXU2G5oCPHrdUMkDAWQ-Yh3-bf16VxjyTgLrV3py8MgcS", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => res.json())
+      .then(res => {
+        alert("Arıza başarıyla gönderildi!");
+        document.getElementById("arizaForm").reset();
+      })
+      .catch(err => {
+        alert("Hata oluştu: " + err.message);
+      });
+    });
+  </script>
+</body>
+</html>
